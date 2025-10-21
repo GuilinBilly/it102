@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+          <title>ASCII Art Square</title>
+    </head>
+    <body>
+
+        <script>
+            //Ask the user to enter a square size between 3 and 30.
+            //that value into a variable.
+            var squareSize = Number(prompt("Enter square size 3 and 30"));
+            //Continuously prompt the user to enter a number within the
+            //specified range if they input a number outside of the acceptable 
+            //range (3-30).
+            while(squareSize < 3 || squareSize > 30) {
+                alert ("not with in range");
+                squareSize = Number (prompt("Enter square size between 3 and 30"));
+
+            };
+
+
+            //Don't worry about non-numeric input, assume the user will type a number.
+
+            //Using prompt() to get user input.
+            //Draw a square of the specified size.  For example, 
+
+            // if a size of 5 is requested, you'd draw this:
+
+            for(row = 0; row < squareSize ; row++) {
+
+                for(col = 0; col <squareSize ;col++){
+                    document.write("*");
+                }
+                document.write("<br>");
+
+            }
+
+        </script>
+
+ </body>
+
+
+
+
+
+
+
+
+
+
+
+</html>
