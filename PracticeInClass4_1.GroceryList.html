@@ -17,17 +17,33 @@
     function createGroceryList() {
 
     //Check for empty input from user
-    
+     var userInput = document.getElementByID("groceryInput.")value;
+      if(userInput == ""){
+        alert("enter grocery items");
+        
+      };
     // Split input string into array
-    
+    var groceryItems = userInput.split(",");   
+      alert(groceryItems[1])
     // Trim white space from each items by looping through array
+       groceryItems[0]= groceryItems[0].trim();
+      alert(groceryItems[0].length);
+      for(i=0;i<groceryItems.length; i++){
+         groceryItems[i]= groceryItems[i].trim();
+
+       };
 
     // Sort groceryItems alphabetically
+      alert{groceryItems};
+      groceryItems.sort();
+      groceryItems.reverse();
+      alert{groceryItems};
     
     // Display grocery list to webpage
-
+      document.getElementByID("groceryItems");.innerHTML = groceryItems;
     };
 
   </script>
   </body>
 </html>
+ 
