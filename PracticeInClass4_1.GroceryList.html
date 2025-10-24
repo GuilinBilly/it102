@@ -16,30 +16,33 @@
   <script>
     function createGroceryList() {
 
-    //Check for empty input from user
-     var userInput = document.getElementByID("groceryInput.")value;
-      if(userInput == ""){
+    // 1) Check for empty input from user
+     var userInput = document.getElementById("groceryInput").value;
+      if(userInput == "" || userInput.trim() === ""){
         alert("enter grocery items");
+        document.getElementById("groceryInput").focus();
+        return;
         
       };
-    // Split input string into array
-    var groceryItems = userInput.split(",");   
+    // 2) Split input string into array
+    var groceryItems = userInput.split(",")  
       alert(groceryItems[1])
-    // Trim white space from each items by looping through array
+
+    //3)  Trim white space from each items by looping through array
        groceryItems[0]= groceryItems[0].trim();
       alert(groceryItems[0].length);
-      for(i=0;i<groceryItems.length; i++){
-         groceryItems[i]= groceryItems[i].trim();
+      for(index=0;index<groceryItems.length; index++){
+         groceryItems[index]= groceryItems[index].trim();
 
        };
 
-    // Sort groceryItems alphabetically
+    //4)  Sort groceryItems alphabetically
       alert{groceryItems};
       groceryItems.sort();
       groceryItems.reverse();
       alert{groceryItems};
     
-    // Display grocery list to webpage
+    //5) Display grocery list to webpage
       document.getElementByID("groceryItems");.innerHTML = groceryItems;
     };
 
