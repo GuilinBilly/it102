@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Let's Make a Deal</title>
+    </head>
+    <body>
+        <h1>Let's Make a Deal</h1>
+        <hr>
+        <p>Choose a door:</p>
+
+
+          <!-- (1) User input: your dropdown -->
+
+        <select id="doorSelection">
+
+            <option value="0">Select a Door</option>
+            <option value="1">Door #1</option>
+            <option value="2">Door #2</option>
+            <option value="3">Door #3</option>
+        </select>
+
+        <!-- (2) Action: your button calls doorPrize() -->
+        <button onclick="doorPrize()">Select</button>
+
+        <p id="prize">Good Luck!</p>
+
+        <script>
+      function doorPrize() {
+        // STEP A: Read the user's choice (string -> number)
+        const selectEl = document.getElementById("doorSelection");
+        const choice = Number(selectEl.value);
+
+        // STEP B: Validate input (selection must not be "0")
+        if (choice === 0) {
+          document.getElementById("prize").textContent = "Please choose a door (1, 2, or 3).";
+          return; // stop here until the user chooses a real door
+        }
+
+        // STEP C: Randomly place the prize behind one of the 3 doors
+        // Math.random() -> [0,1), *3 -> [0,3), floor -> 0,1,2, +1 -> 1..3
+        const prizeDoor = Math.floor(Math.random() * 3) + 1;
+
+        // STEP D: Decide outcome (selection)
+        let message;
+        if (choice === prizeDoor) {
+          message = `You picked Door #${choice} —  You win the car!`;
+        } else {
+          message = `You picked Door #${choice} —  It's a goat. The car was behind Door #${prizeDoor}.`;
+        }
+
+        // STEP E: Display the result (sequencing ends with output)
+        const out = document.getElementById("prize");
+        out.textContent = message;
+      }
+    </script>
+  </body>
+</html>
