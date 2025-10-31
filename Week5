@@ -1,0 +1,11 @@
+function Card(  ){
+
+  //create the suit property and assign it the value from the parameter.
+
+  //create the rank property and assign it the value from the parameter.
+
+  //create the isVisible property and assign boolean false to it.
+
+  //create the show() method.  This method assigns the boolean true to this.isVisible.
+
+  //create the hide() method.  This method assigns the boolean false to this.isVisible.
