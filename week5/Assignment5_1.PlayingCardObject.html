@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Playing Card Object</title>
+</head>
 <body>
-<h1>JavaScript Numbers</h1>
-<h3>Number can be written with or without decimals.</h3>
-
-<p id="demo"></p>
+<h1>Playing Card Object</h1>
 
 <script>
+  // Step 1: Constructor Function
+  function Card(suit, rank) {         // (a) use lowercase variable names
+    // create the suit property and assign it the value from the parameter.
+    this.suit = suit;                 // (b) lowercase "this", correct "suit"
+    // create the rank property and assign it the value from the parameter.
+    this.rank = rank;
+    // create the isVisible property and assign boolean false to it.
+    this.isVisible = false;           // Default: hidden
+    // create the show() method.  This method assigns the boolean true to this.isVisible.
+    this.show = function() {
+      this.isVisible = true;          // (c) consistent spelling and case
+    };
+    // create the hide() method.  This method assigns the boolean false to this.isVisible.
+    this.hide = function() {
+      this.isVisible = false;
+    };
+  }
 
+  // Step 2: Instantiate and display the 2 cards
+  var card01 = new Card("Spades", 9);
+  var card02 = new Card("Hearts", 10);
 
+  document.write("<h3>Beginning State</h3>");
+  document.write("Card01 > Suit: " + card01.suit + ", Rank: " + card01.rank + ", isVisible: " + card01.isVisible + "<br>");
+  document.write("Card02 > Suit: " + card02.suit + ", Rank: " + card02.rank + ", isVisible: " + card02.isVisible + "<br><br>");
 
+  // Step 3: Use show() / hide() on both of the cards
+  card01.show();
+  card02.hide();
 
-
-
-
-  
+  // Step 4: Display again after using the methods
+  document.write("<h3>After show()/hide() methods</h3>");
+  document.write("Card01 > Suit: " + card01.suit + ", Rank: " + card01.rank + ", isVisible: " + card01.isVisible + "<br>");
+  document.write("Card02 > Suit: " + card02.suit + ", Rank: " + card02.rank + ", isVisible: " + card02.isVisible + "<br>");
 </script>
 
 </body>
