@@ -8,16 +8,16 @@
 
 <script>
   // Step 1: Constructor Function
-  function Card(suit, rank) {         // (a) use lowercase variable names
+  function Card(suit, rank) {         
     // create the suit property and assign it the value from the parameter.
-    this.suit = suit;                 // (b) lowercase "this", correct "suit"
+    this.suit = suit;                 
     // create the rank property and assign it the value from the parameter.
     this.rank = rank;
     // create the isVisible property and assign boolean false to it.
     this.isVisible = false;           // Default: hidden
     // create the show() method.  This method assigns the boolean true to this.isVisible.
     this.show = function() {
-      this.isVisible = true;          // (c) consistent spelling and case
+      this.isVisible = true;          
     };
     // create the hide() method.  This method assigns the boolean false to this.isVisible.
     this.hide = function() {
