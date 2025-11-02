@@ -1,0 +1,142 @@
+<!doctype>
+<html>
+  <head>
+    <title>SODO 3_3 - Payroll</title>
+    <script>
+      //Layout pertinent from the company
+      let hourly = 19.00;
+      let OT_MULT = 1.5;
+      let SS_RATE = 0.062;
+      let MED_RATE = 0.0145; 
+      let ALLOWANCE_AMOUNT = 77.90;
+      let WH_RATE = 0.20;
+      //Create a FUNCTION calculateGrossPay () with one parameter, hoursWorked.
+       // 1) Gross Pay
+      function calculateGrossPay(hoursWorked) {
+        if (hoursWorked <= 40) {
+          return hoursWorked * HOURLY;
+        } else {
+          let regularHours = 40;
+          let overtimeHours = hoursWorked - regularHours;
+          let regularPay = regularHours * HOURLY;
+          let overtimePay = overtimeHours * HOURLY * OT_MULT;
+          let grossPay = regularPay + overtimePay;
+          return grossPay;
+        }
+      }
+
+      // 2) Social Security (0.062 of gross)
+      function calculateSocialSecurity(grossPay) {
+        let socialSecurityRate = SS_RATE;
+        let socialSecurity = grossPay * socialSecurityRate;
+        return socialSecurity;
+      }
+
+      // 3) Set MedicareRate (0.0145 of gross)
+      function calculateMedicare(grossPay) {
+        let medicareRate = MED_RATE;
+        let medicare = grossPay * medicareRate;
+        return medicare;
+      }
+
+      // 4) Withholding AFTER SS & Medicare & Allowances
+      function calculateWithholding(grossPay, allowances, socialSecurity, medicare) {
+        let withholdingAllowanceAmount = ALLOWANCE_AMOUNT;
+        let withholdingBase = allowances * withholdingAllowanceAmount;
+        let taxableIncome = Math.max(0, grossPay - socialSecurity - medicare - withholdingBase);
+        let withholdingRate = WH_RATE;
+        let withholding = taxableIncome * withholdingRate;
+        return { withholding, taxableIncome, withholdingBase };
+      }
+
+      // 5) Net Pay
+      function calculateNetPay(grossPay, socialSecurity, medicare, withholding) {
+        let netPay = grossPay - socialSecurity - medicare - withholding;
+        return netPay;
+      }
+
+      // 6) Build paystub and display it
+      function generatePaystub(employeeName, hoursWorked, allowances) {
+        let grossPay = calculateGrossPay(hoursWorked);
+        let socialSecurity = calculateSocialSecurity(grossPay);
+        let medicare = calculateMedicare(grossPay);
+        let { withholding, taxableIncome, withholdingBase } =
+          calculateWithholding(grossPay, allowances, socialSecurity, medicare);
+        let netPay = calculateNetPay(grossPay, socialSecurity, medicare, withholding);
+
+       document.getElementById("payrollStub").innerHTML = html;
+      }
+
+      // 7) Main driver: read form → validate → call generator
+      function main() {
+        let f = document.forms["employeeForm"];
+
+        let firstName = f["firstName"].value.trim();
+        let lastName  = f["lastName"].value.trim();
+        let hoursStr  = f["hoursWorked"].value.trim();
+        let allowStr  = f["allowances"].value.trim();
+
+        // Basic validation
+        let err = "";
+        if (!firstName || !lastName) err += "Please enter first and last name.\n";
+        let hoursWorked = parseFloat(hoursStr);
+        if (Number.isNaN(hoursWorked) || hoursWorked < 0) err += "Hours must be a number ≥ 0.\n";
+        let allowances = parseInt(allowStr, 10);
+        if (Number.isNaN(allowances) || allowances < 0) err += "Allowances must be a whole number ≥ 0.\n";
+
+        if (err) {
+          document.getElementById("errors").textContent = err;
+          document.getElementById("payrollStub").innerHTML = "";
+          return;
+        } else {
+          document.getElementById("errors").textContent = "";
+        }
+
+        let employeeName = `${firstName} ${lastName}`;
+        generatePaystub(employeeName, hoursWorked, allowances);
+      }
+
+      // Expose main() to the button
+      window.main = main;
+    </script>
+  </head>
+
+  <body>
+    <h1>SOTD 3_3 - Payroll</h1>
+    <hr />
+
+     <form name="employeeForm" onsubmit="return false">
+      First Name: <input id="firstName"  type="text" /><br />
+      Last Name: <input id="lastName"  type="text" /><br />
+      Enter Hours Worked: <input id="hoursWorked" type="number" step="0.25" min="0" /><br />
+      Enter number of withholding allowances: <input id="allowances"  type="text"  /><br />
+      <input type="button" value="Submit" onclick="main()" />
+    </form>   
+    
+    <div id="errors" class="err"></div>
+
+    <h3>Payroll Stub</h3>
+    <div id="payrollStub"></div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</html>
