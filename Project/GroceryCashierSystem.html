@@ -3,8 +3,22 @@
   <title>Grocery Cashier System</title>
 <body>
   <h1>Grocery Caashier System/h1>
+    <!-- Step 1 : Login-->
+    <section id="loginCard" class="class">
+      <h2>Step 1 - User Login</h2>
+      <div classs="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" autocomplete="username" placeholder=e.g., billy"/>
+      </div>
+      <div class="field"><label for"userID">User ID</label><input id="userID" type="text"
+          autocomplete="off placeholder="e.g., B123" /></div>
+      <div class="field"<label for"password">Password</label><input id="password" type="password"
+                                  autocomplete="current-password" placeholder="........" /></div>
+      <button id="loginBtn" class="primary">Log In</button>
+      <div id="errors" role="alert"></div>
+     </section>
 
-<h2>My First JavaScript</h2>
+
 
 <button type="button"
 onclick="document.getElementById('demo').innerHTML = Date()">
