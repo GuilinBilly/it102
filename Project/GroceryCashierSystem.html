@@ -2,29 +2,42 @@
 <html>
   <title>Grocery Cashier System</title>
 <body>
-  <h1>Grocery Caashier System/h1>
+  <h1>Grocery Caashier System</h1>
     <!-- Step 1 : Login-->
     <section id="loginCard" class="class">
       <h2>Step 1 - User Login</h2>
       <div classs="field">
         <label for="username">Username</label>
-        <input id="username" type="text" autocomplete="username" placeholder=e.g., billy"/>
+        <input id="username" type="text" autocomplete="username" placeholder="e.g., billy"/>
       </div>
       <div class="field"><label for"userID">User ID</label><input id="userID" type="text"
-          autocomplete="off placeholder="e.g., B123" /></div>
+          autocomplete="off" placeholder="e.g., B123" /></div>
       <div class="field"<label for"password">Password</label><input id="password" type="password"
                                   autocomplete="current-password" placeholder="........" /></div>
       <button id="loginBtn" class="primary">Log In</button>
       <div id="errors" role="alert"></div>
      </section>
 
+    <!-- App Area displayed after successful login -->
+    <section id="app" class="card">
+      <h2> class="ok">Login Successful</h2>
+      <p id="welcome"></p>
+    </section>
+
+    <!-- Step 3: Entry -->
+    <section id="entry class="card">
+      <h2>Step 3 - Add Item</h2>
+      div class="field"><label for"itemName">Item Name</label><input id="itemName"type="text" 
+                                                                placeholder="e.g., Apple"></div>
+      <div> class="field">label for="itemPrice">Item Price</label>input id="itemPrice"type="number"
+        step="0.01" min="0" placeholder="e.g., 1.25"></div>
+      <button id="addBtn" class="primary">+ Add</button>
+      <button id="clearInputBtn" type="button">clear</button>
+      <div id="entryError" class="err" style="color:b91c1c"></div>
+     </section>
 
 
-<button type="button"
-onclick="document.getElementById('demo').innerHTML = Date()">
-Click me to display Date and Time.</button>
 
-<p id="demo"></p>
 
 </body>
 </html> 
