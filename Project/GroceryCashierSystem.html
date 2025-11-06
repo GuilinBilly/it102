@@ -27,17 +27,120 @@
     <!-- Step 3: Entry -->
     <section id="entry class="card">
       <h2>Step 3 - Add Item</h2>
-      div class="field"><label for"itemName">Item Name</label><input id="itemName"type="text" 
+      <div class="field"><label for="itemName">Item Name</label><input id="itemName"type="text" 
                                                                 placeholder="e.g., Apple"></div>
-      <div> class="field">label for="itemPrice">Item Price</label>input id="itemPrice"type="number"
+      <div class="field"><label for="itemPrice">Item Price</label><input id="itemPrice"type="number"
         step="0.01" min="0" placeholder="e.g., 1.25"></div>
       <button id="addBtn" class="primary">+ Add</button>
-      <button id="clearInputBtn" type="button">clear</button>
-      <div id="entryError" class="err" style="color:b91c1c"></div>
+      <button id="clearInputsBtn" type="button">clear</button>
+      <div id="entryError" class="err" style="color:#b91c1c"></div>
      </section>
+     <!-- Step 3: Cart -->
+  <section id="cart" class="cart">
+    <h2>Current Items</h2>
+    <table id="items Table"border="0"width="100%"></table>
+    <p id="subtotalLine"><strong>Subtotal:</strong> $0.00</p>
+    <button id="checkoutBtn" class="primary">Checkout</button>
+  </section>
+
+      <!-- Step 4: Totals -->
+  <section id="totals" class="cart">
+     <h2>Step 4 - Totals</h2>
+    <p id"taxline">Tax(10%):$0.00</p>
+    <p id="totalLine"><strong>Total:</strong>$0.00</p>
+  </section>
+      <!-- Step 5: Receipt -->
+  <section id="receipt" class="card" style="display:none">
+    <h2>Step 5 - Receipt</h2>
+    <pre id="receiptTax" style="white-space:pre-wrap"></pre>
+    <button id="printBtn" classs="primary">Print</button>
+    <button id="mewTaxBtn" type="button">New Transaction</button>
+  </section>
+
+  <script>
+   fuction createCashier(defaultTax = 0.10){
+    return{
+      items:[],taxRate: defaultTax,
+      addItem(name,price){this.items.push({name,price});},
+      removeItem(index){if(index>=0 && index<this.items.length)this.items.splice(index, 1);}
+      get subtotal(){return this.items.reduce((sum,it)=>sum + it.price,0);},
+      get tax(){return this.subtotal*this.taxRate;},
+      get total(){return this.subtotal + this.tax;}
+    };
+   }
+    
+  const allowedUsers= [
+  {username:"billy",id:"B123",password:"pass123"},
+  {username:"joyce",id"A777",password:"apple"},
+    {username:"poul",id:"C009",password:"carrot"}
+];
+   let currentUser = null;
+   const $username = document.getElementById("username");
+   const $userId = document.getElementById("userId");
+   const $password = document.getElementById("password");
+   const $loginBtn = document.getElementById("loginBtn");
+   const $error = document.getElementById("error");
+   const $loginCard = document.getElementById("loginCard");
+   const app = document.getElementById("app");
+   const welcome = document.getElementById("welcome");
+
+    function isValidCredential(inputName,inputId,inputPw){
+      const match = allowedUsers.find(user =>
+        user.username.toLowerCase()===inputName.trim().toLowerCase()&&
+        user.id===inputId.trim()&&
+        user.password===inputPw);
+      if (match){
+        currentUser = match;
+        sessionStorage.setItem("cashier.currentUser",
+                              JSON stringify(currentUser));
+        return trye;
+      }
+        return false;
+    }
+    $loginBtn.addEventListener("click",function(){
+      const inputName = $username.value;
+      const inputId = $userId.value;
+      if (!inputName || !inputPw){
+        $errors.textContent = "Please enter Username, User ID, and Password.";
+        return;
+    }
+       if (isValidCredential(inputName,inputId,inputPw)){
+         $errors.textContent ="";
+         $loginCard.style.display = "none";
+         $app.style.display = "block";
+         $welcome.textContent = 'Welcome,${currentUser.username}(ID: ${currentUser.id}).';
+         window.cashier = createCashier(0.10);
+         redrawTable();
+         redrawTotal();
+       }else{
+         $errors.textContent = 'Invalid credentials.Please try again.';
+         $password.value = "";
+         $password.focus();
+       }
+    });
+      
+        
+                                    
+
+                                      
+    
+    
 
 
 
+
+
+
+
+
+
+
+
+
+
+    
+    
+  </script>
 
 </body>
 </html> 
