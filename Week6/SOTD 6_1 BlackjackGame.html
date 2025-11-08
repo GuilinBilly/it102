@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Blackjack</h1>
+
+    <script>
+      //initialize all variables
+      var card = 0;
+      var total = 0;
+      var hitMe = true;
+      var dealer = 0;
+
+      //1st card
+      hitMe = prompt("Current total: " + total + "Take a card? Y/N");
+      if (hitMe == "Y"){
+        hitMe = true;
+      }else {
+        hitMe = false;
+      }
+
+      if(hitMe){
+        card = Math.ceil(11*Math.random());
+        total += card;
+      }
+
+      //2nd card
+      hitMe = prompt("Current total: " + total + "Take a card? Y/N");
+      if (hitMe == "Y"){
+        hitMe = true;
+      }else {
+        hitMe = false;
+      }
+
+      if(hitMe){
+        card = Math.ceil(11*Math.random());
+        total += card;
+      }
+
+      //3rd card
+      hitMe = prompt("Current total: " + total + "Take a card? Y/N");
+      if (hitMe == "Y"){
+        hitMe = true;
+      }else {
+        hitMe = false;
+      }
+
+      if(hitMe){
+        card = Math.ceil(11*Math.random());
+        total += card;
+      }
+
+      //final total
+
+      //dealer always takes 2 cards
+      dealer = Math.ceil(11*Math.random()) + Math.ceil(11*Math.random());
+
+      alert("Your hand is worth " + total + ". Dealer got " + dealer + ".");
+
+    </script>
+  </body>
+</html>
