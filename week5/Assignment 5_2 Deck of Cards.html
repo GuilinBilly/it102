@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Deck of Cards</title>
+  
+</head>
+<body>
+  <h1>Deck of Cards</h1>
+  <button id="dealBtn">Deal 3 Cards</button>
+  <div id="hand"></div>
+  <div id="status"></div>
+  <div id="check"></div>
+
+  <script>
+    // --- Card "class" (object with properties + methods) ---
+    function Card(suit, rank) {
+      this.suit = suit;
+      this.rank = rank;
+      this.isVisible = false;   // property from the assignment
+      this.dealt = false;       // track if dealt
+    }
+    Card.prototype.show = function () { this.isVisible = true; };
+    Card.prototype.hide = function () { this.isVisible = false; };
+    Card.prototype.toString = function () { return `${this.rank} of ${this.suit}`; };
+
+    // --- Build a full deck of 52 cards ---
+    function buildDeck() {
+      const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+      const ranks = ["Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"];
+      const deck = [];
+      for (const s of suits) {
+        for (const r of ranks) {
+          deck.push(new Card(s, r));
+        }
+      }
+      return deck;
+    }
+
+    const deck = buildDeck();
+    const hand = [];
+
+    // --- Deal one random, undealt card ---
+    function dealRandomCard() {
+      // random index among ONLY the undealt cards
+      const available = deck.filter(c => !c.dealt);
+      if (available.length === 0) return null;
+
+      const randomIndex = Math.floor(Math.random() * available.length); // 0..(available.length-1)
+      const card = available[randomIndex];
+
+      card.dealt = true;   // mark as dealt (tracks it without removing from the deck)
+      card.show();         // flip it face-up (isVisible = true)
+      hand.push(card);     // add to hand
+      return card;
+    }
+
+    // --- Deal N unique cards ---
+    function dealHand(n = 3) {
+      // reset all cards first (so clicking "Deal 3 Cards" again gives a fresh hand)
+      hand.length = 0;
+      deck.forEach(c => { c.dealt = false; c.hide(); });
+
+      for (let i = 0; i < n; i++) {
+        dealRandomCard();
+      }
+      render();
+    }
+
+    // --- Tell if a particular card is still in the deck (not dealt) ---
+    function isInDeck(target) {
+      return deck.some(c => c.suit === target.suit && c.rank === target.rank && !c.dealt);
+    }
+
+    // --- Display to the page ---
+    function render() {
+      const handDiv = document.getElementById("hand");
+      handDiv.innerHTML = hand
+        .map((c, i) => `Card ${i + 1}: ${c.toString()} (visible: ${c.isVisible})`)
+        .join("<br>");
+
+      const remaining = deck.filter(c => !c.dealt).length;
+      document.getElementById("status").textContent =
+        `Cards dealt: ${hand.length} | Remaining in deck: ${remaining}`;
+
+      // Demo: check if Ace of Hearts is still in the deck
+      const demoCard = { suit: "Hearts", rank: "Ace" };
+      document.getElementById("check").textContent =
+        `Is ${demoCard.rank} of ${demoCard.suit} still in deck? ` +
+        (isInDeck(demoCard) ? "Yes" : "No");
+    }
+
+    // Button to deal again
+    document.getElementById("dealBtn").addEventListener("click", () => dealHand(3));
+
+    // Initial deal on page load
+    dealHand(3);
+  </script>
+</body>
+</html>
