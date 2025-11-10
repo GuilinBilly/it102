@@ -121,7 +121,19 @@
          $password.focus();
        }
     });
-      
+    [$username, $userId, $password].forEach(input =>{
+      input.addEventListenter("keydown", (e) => {if (e.key === "Enter") $loginBtn.click(); });
+    });
+    const $itemName = document.getElementById('itemName');
+    const $itemPrice = document.getElementById('itemPrice');
+    const $addBtn = document.getElementById('addBtn');
+    const $clearInputsBtn = document.getElementById('clearInputsBtn');
+    const $entryError = document.getElementById('entryError');
+    const $itemsTable = document.getElementById('itemTable');
+    const $subtotalLine = document.getElementById('subtotalLine');
+    const $checkoutBtn document.getElementById('checkoutBtn');
+
+    
         
                                     
 
