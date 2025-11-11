@@ -13,9 +13,9 @@
         <label for="username">Username</label>
         <input id="username" type="text" autocomplete="username" placeholder="e.g., billy"/>
       </div>
-      <div class="field"><label for"userID">User ID</label><input id="userID" type="text"
+      <div class="field"><label for="userID">User ID</label><input id="userID" type="text"
           autocomplete="off" placeholder="e.g., B123" /></div>
-      <div class="field"<label for"password">Password</label><input id="password" type="password"
+      <div class="field"<label for="password">Password</label><input id="password" type="password"
                                   autocomplete="current-password" placeholder="........" /></div>
       <button id="loginBtn" class="primary">Log In</button>
       <div id="errors" role="alert"></div>
@@ -90,8 +90,9 @@
     function isValidCredential(inputName,inputId,inputPw){
       const match = allowedUsers.find(user =>
         user.username.toLowerCase()===inputName.trim().toLowerCase()&&
-        user.id===inputId.trim()&&
-        user.password===inputPw);
+        user.id===inputId.trim() &&
+        user.password===inputPw
+      );
       if (match){
         currentUser = match;
         sessionStorage.setItem("cashier.currentUser",
@@ -103,7 +104,8 @@
     $loginBtn.addEventListener("click",function(){
       const inputName = $username.value;
       const inputId = $userId.value;
-      if (!inputName || !inputPw){
+      const inputPw =$password.value
+      if (!inputName || !inputId ||!inputPw){
         $errors.textContent = "Please enter Username, User ID, and Password.";
         return;
     }
@@ -122,14 +124,14 @@
        }
     });
     [$username, $userId, $password].forEach(input =>{
-      input.addEventListenter("keydown", (e) => {if (e.key === "Enter") $loginBtn.click(); });
+      input.addEventListener("keydown", (e) => {if (e.key === "Enter") $loginBtn.click(); });
     });
     const $itemName = document.getElementById('itemName');
     const $itemPrice = document.getElementById('itemPrice');
     const $addBtn = document.getElementById('addBtn');
     const $clearInputsBtn = document.getElementById('clearInputsBtn');
     const $entryError = document.getElementById('entryError');
-    const $itemsTable = document.getElementById('itemTable');
+    const $itemsTable = document.getElementById('itemsTable');
     const $subtotalLine = document.getElementById('subtotalLine');
     const $checkoutBtn document.getElementById('checkoutBtn');
 function toMoney(n) {return Number(n || 0).toFixed(2);}
