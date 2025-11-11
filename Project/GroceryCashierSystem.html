@@ -208,7 +208,7 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
                                                               {toMoney(it.price)}');});
       }
       lines.push('---------------------------------------');
-        lines.push('Subtotal: $${toMoney(window.cashier?subtotal || 0)}');
+        lines.push('Subtotal: $${toMoney(window.cashier?.subtotal || 0)}');
         lines.push('Tax (${(window.cashier?.taxRate ?? 0)*100}%): $${toMoney(window.cashier?.tax
       || 0)}');
         lines.push('TOTAL: $${toMoney(window.cashier?.total || 0)}');
