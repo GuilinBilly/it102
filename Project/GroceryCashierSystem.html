@@ -156,8 +156,88 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
         });
       });
     }
-                                    
+    function addItemFormInputs() {
+      $entryError.textContent = '';
+      const name = ($itemName.value || '').trim();
+      const price = Number($itemPrice.value);
+      if (!name) {$entryError.textContent = 'item name is required.'; return;}
+      if (isNaN(price) || price <= 0) {$entryError.textContent = 'Price must be greater than 0.'; return;}
+      window.cashier.addItem(name, price);
+      $itemName.value = '';
+      $itemPrice.value = '';
+      $itemName.focus();
+      redrawTable();
+      redrawTotals();
+    }
+    $addBtn.addEventListener('click', () => {$itemName.value = '';$itemPrice.value =
+      ''; $entryError.textContent = '';});
+    const $taxLine = document.getElementById('taxLine');
+    const totalLine = document.getElementById('totalLine');
 
+    function redrawTotals() {
+      const sub = window.cashier?.subtotal || 0;
+      const tax = window.cashier?.tax || 0;
+      const tot = window.cashier?.total || 0;
+      $subtotalLine.innerHTML = '<strong>Subtotal:</strong> $${toMoney(sub)}';
+      $taxLine.textContent = 'Tax (${window.cashier?.taxRate ?? 0)*100%): $$(toMoney(tax)}';
+      $totalLine.innerHTML = '<strong>'Total:</strong> $${toMoney(tot)}';
+    }
+
+    const $receipt = document.getElementById('receipt');
+    const $receiptText = document.getElementById(receiptText);
+    const $printBtn = document.getElementById('printBtn');
+    const $newTxnBtn = document.getElementById('newTxnBtn');
+
+    function nowStamp() {
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      return '${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:
+        ${pad(d.getMinutes())}';  
+    }
+
+    function buildReceipt() {
+      const user = JSON.parse(sessionStorage.getItem('cashier.currentUser')|| '{}');
+      const line = [];
+      lines.push('Grocery Cashier Receipt');
+      line.push('Date: ${nowStamp()}');
+      if (user.username && user.id) lines.push('Cashier: ${user.usename} (ID: ${user.id})');
+      lines.push('---------------------------------------');
+      if (window.cashier || window.cashier.items.length === 0) {lines.push('(No items)');}
+      else {
+        window.cashier.items.forEach((it, idx) => {lines.push('${idx + 1}. ${it.name} $$
+                                                              {toMoney(it.price)}');});
+      }
+      lines.push('---------------------------------------');
+        lines.push('Subtotal: $${toMoney(window.cashier?subtotal || 0)}');
+        lines.push('Tax (${(window.cashier?.taxRate ?? 0)*100}%): $${toMoney(window.cashier?.tax
+      || 0)}');
+        lines.push('TOTAL: $${toMoney(window.cashier?.total || 0)}');
+      return lines.join('\n');
+    }
+
+    $checkoutBtn.addEventListener('click', () => {
+      if (!window.cashier || window.cashier.items.length === 0) {
+        alert('Please add at least one item before checkout.');
+        return;
+      }
+      $receiptTet.textContent = buildReceipt();
+      $receipt.style.display = 'block';
+      $receipt.scrollIntoView(behavior: 'smooth' });
+    });
+    $printBtn.addEventListener('click', () => window.print());
+    $newTxnBtn.addEventListener('click', () => {
+      window.cashier = createCashier(window.cashier?.taxRate ?? 0.10);
+      redrawTable();
+      redrawTotals();
+      $receipt.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
+    
+                  
+                                     
                                       
     
     
@@ -175,8 +255,3 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
 
 
     
-    
-  </script>
-
-</body>
-</html> 
