@@ -63,11 +63,12 @@
   <script>
    function createCashier(defaultTax = 0.10){
     return{
-      items:[],taxRate: defaultTax,
+      items:[],
+      taxRate: defaultTax,
       addItem(name,price){this.items.push({name,price});},
       removeItem(index){if(index>=0 && index<this.items.length)this.items.splice(index, 1);},
       get subtotal(){return this.items.reduce((sum,it)=>sum + it.price,0);},
-      get tax(){return this.subtotal*this.taxRate;},
+      get tax(){return this.subtotal * this.taxRate;},
       get total(){return this.subtotal + this.tax;}
     };
    }
@@ -95,16 +96,16 @@
       );
       if (match){
         currentUser = match;
-        sessionStorage.setItem("cashier.currentUser",
-                              JSON.stringify(currentUser));
+        sessionStorage.setItem("cashier.currentUser", JSON.stringify(currentUser));
         return true;
       }
         return false;
     }
     $loginBtn.addEventListener("click",function(){
       const inputName = $username.value;
-      const inputId = $userId.value;
-      const inputPw =$password.value
+      const inputId   = $userId.value;
+      const inputPw   = $password.value
+      
       if (!inputName || !inputId ||!inputPw){
         $errors.textContent = "Please enter Username, User ID, and Password.";
         return;
@@ -118,7 +119,7 @@
          redrawTable();
          redrawTotals();
        }else{
-         $errors.textContent = 'Invalid credentials.Please try again.';
+         $errors.textContent = "Invalid credentials.Please try again.";
          $password.value = "";
          $password.focus();
        }
@@ -126,14 +127,14 @@
     [$username, $userId, $password].forEach(input =>{
       input.addEventListener("keydown", (e) => {if (e.key === "Enter") $loginBtn.click(); });
     });
-    const $itemName = document.getElementById('itemName');
-    const $itemPrice = document.getElementById('itemPrice');
-    const $addBtn = document.getElementById('addBtn');
+    const $itemName       = document.getElementById('itemName');
+    const $itemPrice      = document.getElementById('itemPrice');
+    const $addBtn         = document.getElementById('addBtn');
     const $clearInputsBtn = document.getElementById('clearInputsBtn');
-    const $entryError = document.getElementById('entryError');
-    const $itemsTable = document.getElementById('itemsTable');
-    const $subtotalLine = document.getElementById('subtotalLine');
-    const $checkoutBtn = document.getElementById('checkoutBtn');
+    const $entryError     = document.getElementById('entryError');
+    const $itemsTable     = document.getElementById('itemsTable');
+    const $subtotalLine   = document.getElementById('subtotalLine');
+    const $checkoutBtn    = document.getElementById('checkoutBtn');
 function toMoney(n) {return Number(n || 0).toFixed(2);}
     function redrawTable() {
       const rows = ['<tr><th>#</th><th>Name</th><th>Price ($)</th><th></th></tr>'];
