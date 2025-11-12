@@ -65,7 +65,7 @@
     return{
       items:[],taxRate: defaultTax,
       addItem(name,price){this.items.push({name,price});},
-      removeItem(index){if(index>=0 && index<this.items.length)this.items.splice(index, 1);}
+      removeItem(index){if(index>=0 && index<this.items.length)this.items.splice(index, 1);},
       get subtotal(){return this.items.reduce((sum,it)=>sum + it.price,0);},
       get tax(){return this.subtotal*this.taxRate;},
       get total(){return this.subtotal + this.tax;}
@@ -133,12 +133,12 @@
     const $entryError = document.getElementById('entryError');
     const $itemsTable = document.getElementById('itemsTable');
     const $subtotalLine = document.getElementById('subtotalLine');
-    const $checkoutBtn document.getElementById('checkoutBtn');
+    const $checkoutBtn = document.getElementById('checkoutBtn');
 function toMoney(n) {return Number(n || 0).toFixed(2);}
     function redrawTable() {
       const rows = ['<tr><th>#</th><th>Name</th><th>Price ($)</th><th></th></tr>'];
       if (!window.cashier || window.cashier.items.length === 0){
-        row.push('<tr><td colspan="4">No items yet.</td></tr>');
+        rows.push('<tr><td colspan="4">No items yet.</td></tr>');
       } else {
         window.cashier.items.forEach((it, idx) => {
           rows.push('<tr><td>${idx + 1}</td><td>${it.name}</td><td>${toMoney(it.price)}</td><td><button
@@ -146,7 +146,7 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
         });
       }
       $itemsTable.innerHTML = rows.join('');
-      subtotalLine.innerHTML = '<strong>Subtotal:</strong> $${toMoney(window.cashier?.subtotal || 0)}';
+      $subtotalLine.innerHTML = '<strong>Subtotal:</strong> $${toMoney(window.cashier?.subtotal || 0)}';
       document.querySelectorAll('[data-remove]').forEach(btn => {
         btn.addEventListener('click', () => {
           const i = parseInt(btn.getAttribute('data-remove'),10);
@@ -169,8 +169,7 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
       redrawTable();
       redrawTotals();
     }
-    $addBtn.addEventListener('click', () => {$itemName.value = '';$itemPrice.value =
-      ''; $entryError.textContent = '';});
+    $addBtn.addEventListener('click',addItemFormInputs);
     const $taxLine = document.getElementById('taxLine');
     const $totalLine = document.getElementById('totalLine');
 
@@ -191,8 +190,7 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
     function nowStamp() {
       const d = new Date();
       const pad = (n) => String(n).padStart(2, '0');
-      return '${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:
-        ${pad(d.getMinutes())}';  
+      return '${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}';  
     }
 
     function buildReceipt() {
@@ -202,7 +200,7 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
       lines.push('Date: ${nowStamp()}');
       if (user.username && user.id) lines.push('Cashier: ${user.username} (ID: ${user.id})');
       lines.push('---------------------------------------');
-      if (window.cashier || window.cashier.items.length === 0) {lines.push('(No items)');}
+      if (!window.cashier || window.cashier.items.length === 0) {lines.push('(No items)');}
       else {
         window.cashier.items.forEach((it, idx) => {lines.push('${idx + 1}. ${it.name} $$
                                                               {toMoney(it.price)}');});
