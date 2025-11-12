@@ -5,17 +5,17 @@
   <title>Grocery Cashier System</title>
   </head>
 <body>
-  <h1>Grocery Caashier System</h1>
+  <h1>Grocery Cashier System</h1>
     <!-- Step 1 : Login-->
     <section id="loginCard" class="card">
       <h2>Step 1 - User Login</h2>
-      <div classs="field">
+      <div class="field">
         <label for="username">Username</label>
         <input id="username" type="text" autocomplete="username" placeholder="e.g., billy"/>
       </div>
       <div class="field"><label for="userId">User ID</label><input id="userId" type="text"
           autocomplete="off" placeholder="e.g., B123" /></div>
-      <div class="field"<label for="password">Password</label><input id="password" type="password"
+      <div class="field"><label for="password">Password</label><input id="password" type="password"
                                   autocomplete="current-password" placeholder="........" /></div>
       <button id="loginBtn" class="primary">Log In</button>
       <div id="errors" role="alert"></div>
@@ -28,7 +28,7 @@
     </section>
 
     <!-- Step 3: Entry -->
-    <section id="entry class="card">
+    <section id="entry" class="card">
       <h2>Step 3 - Add Item</h2>
       <div class="field"><label for="itemName">Item Name</label><input id="itemName"type="text" 
                                                                 placeholder="e.g., Apple"></div>
@@ -41,7 +41,7 @@
      <!-- Step 3: Cart -->
   <section id="cart" class="cart">
     <h2>Current Items</h2>
-    <table id="items Table"border="0"width="100%"></table>
+    <table id="itemsTable"border="0"width="100%"></table>
     <p id="subtotalLine"><strong>Subtotal:</strong> $0.00</p>
     <button id="checkoutBtn" class="primary">Checkout</button>
   </section>
@@ -49,19 +49,19 @@
       <!-- Step 4: Totals -->
   <section id="totals" class="cart">
      <h2>Step 4 - Totals</h2>
-    <p id"taxline">Tax(10%):$0.00</p>
+    <p id="taxline">Tax(10%):$0.00</p>
     <p id="totalLine"><strong>Total:</strong>$0.00</p>
   </section>
       <!-- Step 5: Receipt -->
   <section id="receipt" class="card" style="display:none">
     <h2>Step 5 - Receipt</h2>
-    <pre id="receiptTax" style="white-space:pre-wrap"></pre>
-    <button id="printBtn" classs="primary">Print</button>
-    <button id="mewTaxBtn" type="button">New Transaction</button>
+    <pre id="receiptText" style="white-space:pre-wrap"></pre>
+    <button id="printBtn" class="primary">Print</button>
+    <button id="newTaxBtn" type="button">New Transaction</button>
   </section>
 
   <script>
-   fuction createCashier(defaultTax = 0.10){
+   function createCashier(defaultTax = 0.10){
     return{
       items:[],taxRate: defaultTax,
       addItem(name,price){this.items.push({name,price});},
@@ -74,7 +74,7 @@
     
   const allowedUsers= [
   {username:"billy",id:"B123",password:"pass123"},
-  {username:"joyce",id"A777",password:"apple"},
+  {username:"joyce",id:"A777",password:"apple"},
     {username:"poul",id:"C009",password:"carrot"}
 ];
    let currentUser = null;
@@ -82,10 +82,10 @@
    const $userId = document.getElementById("userId");
    const $password = document.getElementById("password");
    const $loginBtn = document.getElementById("loginBtn");
-   const $error = document.getElementById("error");
+   const $errors = document.getElementById("errors");
    const $loginCard = document.getElementById("loginCard");
-   const app = document.getElementById("app");
-   const welcome = document.getElementById("welcome");
+   const $app = document.getElementById("app");
+   const $welcome = document.getElementById("welcome");
 
     function isValidCredential(inputName,inputId,inputPw){
       const match = allowedUsers.find(user =>
@@ -96,8 +96,8 @@
       if (match){
         currentUser = match;
         sessionStorage.setItem("cashier.currentUser",
-                              JSON stringify(currentUser));
-        return trye;
+                              JSON.stringify(currentUser));
+        return true;
       }
         return false;
     }
@@ -116,7 +116,7 @@
          $welcome.textContent = 'Welcome,${currentUser.username}(ID: ${currentUser.id}).';
          window.cashier = createCashier(0.10);
          redrawTable();
-         redrawTotal();
+         redrawTotals();
        }else{
          $errors.textContent = 'Invalid credentials.Please try again.';
          $password.value = "";
@@ -172,15 +172,15 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
     $addBtn.addEventListener('click', () => {$itemName.value = '';$itemPrice.value =
       ''; $entryError.textContent = '';});
     const $taxLine = document.getElementById('taxLine');
-    const totalLine = document.getElementById('totalLine');
+    const $totalLine = document.getElementById('totalLine');
 
     function redrawTotals() {
       const sub = window.cashier?.subtotal || 0;
       const tax = window.cashier?.tax || 0;
       const tot = window.cashier?.total || 0;
       $subtotalLine.innerHTML = '<strong>Subtotal:</strong> $${toMoney(sub)}';
-      $taxLine.textContent = 'Tax (${window.cashier?.taxRate ?? 0)*100%): $$(toMoney(tax)}';
-      $totalLine.innerHTML = '<strong>'Total:</strong> $${toMoney(tot)}';
+      $taxLine.textContent = 'Tax (${(window.cashier?.taxRate ?? 0)*100%): $$(toMoney(tax)}';
+      $totalLine.innerHTML = '<strong>Total:</strong> $${toMoney(tot)}';
     }
 
     const $receipt = document.getElementById('receipt');
@@ -197,9 +197,9 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
 
     function buildReceipt() {
       const user = JSON.parse(sessionStorage.getItem('cashier.currentUser')|| '{}');
-      const line = [];
+      const lines = [];
       lines.push('Grocery Cashier Receipt');
-      line.push('Date: ${nowStamp()}');
+      lines.push('Date: ${nowStamp()}');
       if (user.username && user.id) lines.push('Cashier: ${user.usename} (ID: ${user.id})');
       lines.push('---------------------------------------');
       if (window.cashier || window.cashier.items.length === 0) {lines.push('(No items)');}
