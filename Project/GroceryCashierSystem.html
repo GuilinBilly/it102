@@ -66,7 +66,8 @@
       items:[],
       taxRate: defaultTax,
       addItem(name,price){this.items.push({name,price});},
-      removeItem(index){if(index>=0 && index<this.items.length)this.items.splice(index, 1);},
+      removeItem(index){if(index>=0 && index<this.items.length)
+    this.items.splice(index, 1);},
       get subtotal(){return this.items.reduce((sum,it)=>sum + it.price,0);},
       get tax(){return this.subtotal * this.taxRate;},
       get total(){return this.subtotal + this.tax;}
@@ -125,7 +126,8 @@
        }
     });
     [$username, $userId, $password].forEach(input =>{
-      input.addEventListener("keydown", (e) => {if (e.key === "Enter") $loginBtn.click(); });
+      input.addEventListener("keydown", (e) => {if (e.key === "Enter") 
+    $loginBtn.click(); });
     });
     const $itemName       = document.getElementById('itemName');
     const $itemPrice      = document.getElementById('itemPrice');
@@ -137,6 +139,7 @@
     const $checkoutBtn    = document.getElementById('checkoutBtn');
     const $taxline        = document.getElementById('taxline');
     const $totalLine      = document.getElementById('totalLine');
+
 function toMoney(n) {return Number(n || 0).toFixed(2);}
     
 function redrawTable() {
