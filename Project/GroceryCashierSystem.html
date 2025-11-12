@@ -135,15 +135,24 @@
     const $itemsTable     = document.getElementById('itemsTable');
     const $subtotalLine   = document.getElementById('subtotalLine');
     const $checkoutBtn    = document.getElementById('checkoutBtn');
+    const $taxline        = document.getElementById('taxline');
+    const $totalLine      = document.getElementById('totalLine');
 function toMoney(n) {return Number(n || 0).toFixed(2);}
-    function redrawTable() {
+    
+function redrawTable() {
       const rows = ['<tr><th>#</th><th>Name</th><th>Price ($)</th><th></th></tr>'];
       if (!window.cashier || window.cashier.items.length === 0){
         rows.push('<tr><td colspan="4">No items yet.</td></tr>');
       } else {
         window.cashier.items.forEach((it, idx) => {
-          rows.push('<tr><td>${idx + 1}</td><td>${it.name}</td><td>${toMoney(it.price)}</td><td><button
-  data-remove="${idx}">x</button></td></tr>');
+          rows.push(
+         '<tr>
+            <td>${idx + 1}</td>
+            <td>${it.name}</td>
+            <td>${toMoney(it.price)}</td>
+            <td><button data-remove="${idx}">x</button></td>
+          </tr>'
+          );
         });
       }
       $itemsTable.innerHTML = rows.join('');
@@ -171,9 +180,8 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
       redrawTotals();
     }
     $addBtn.addEventListener('click',addItemFormInputs);
-    const $taxLine = document.getElementById('taxLine');
-    const $totalLine = document.getElementById('totalLine');
-
+    $clearInputsBtn.addEventListener('click', () => { $itemName.value = ''; $itemPrice.value =''; $entryError.textContent = '';});
+    
     function redrawTotals() {
       const sub = window.cashier?.subtotal || 0;
       const tax = window.cashier?.tax || 0;
@@ -203,13 +211,13 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
       lines.push('---------------------------------------');
       if (!window.cashier || window.cashier.items.length === 0) {lines.push('(No items)');}
       else {
-        window.cashier.items.forEach((it, idx) => {lines.push('${idx + 1}. ${it.name} $$
-                                                              {toMoney(it.price)}');});
+        window.cashier.items.forEach((it, idx) => {
+          lines.push('${idx + 1}. ${it.name} $${toMoney(it.price)}');
+        });
       }
       lines.push('---------------------------------------');
         lines.push('Subtotal: $${toMoney(window.cashier?.subtotal || 0)}');
-        lines.push('Tax (${(window.cashier?.taxRate ?? 0)*100}%): $${toMoney(window.cashier?.tax
-      || 0)}');
+        lines.push('Tax (${(window.cashier?.taxRate ?? 0)*100}%): $${toMoney(window.cashier?.tax || 0)}');
         lines.push('TOTAL: $${toMoney(window.cashier?.total || 0)}');
       return lines.join('\n');
     }
