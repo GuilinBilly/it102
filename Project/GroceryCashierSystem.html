@@ -200,7 +200,7 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
       const lines = [];
       lines.push('Grocery Cashier Receipt');
       lines.push('Date: ${nowStamp()}');
-      if (user.username && user.id) lines.push('Cashier: ${user.usename} (ID: ${user.id})');
+      if (user.username && user.id) lines.push('Cashier: ${user.username} (ID: ${user.id})');
       lines.push('---------------------------------------');
       if (window.cashier || window.cashier.items.length === 0) {lines.push('(No items)');}
       else {
@@ -220,9 +220,9 @@ function toMoney(n) {return Number(n || 0).toFixed(2);}
         alert('Please add at least one item before checkout.');
         return;
       }
-      $receiptTet.textContent = buildReceipt();
+      $receiptText.textContent = buildReceipt();
       $receipt.style.display = 'block';
-      $receipt.scrollIntoView(behavior: 'smooth' });
+      $receipt.scrollIntoView({behavior: 'smooth' });
     });
     $printBtn.addEventListener('click', () => window.print());
     $newTxnBtn.addEventListener('click', () => {
