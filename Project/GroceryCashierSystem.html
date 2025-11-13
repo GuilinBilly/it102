@@ -210,18 +210,18 @@ function redrawTable() {
       const lines = [];
       lines.push('Grocery Cashier Receipt');
       lines.push('Date: ${nowStamp()}');
-      if (user.username && user.id) lines.push('Cashier: ${user.username} (ID: ${user.id})');
+      if (user.username && user.id) lines.push(`Cashier: ${user.username} (ID: ${user.id})`);
       lines.push('---------------------------------------');
       if (!window.cashier || window.cashier.items.length === 0) {lines.push('(No items)');}
       else {
         window.cashier.items.forEach((it, idx) => {
-          lines.push('${idx + 1}. ${it.name} $${toMoney(it.price)}');
+          lines.push(`${idx + 1}. ${it.name} $${toMoney(it.price)}`);
         });
       }
       lines.push('---------------------------------------');
-        lines.push('Subtotal: $${toMoney(window.cashier?.subtotal || 0)}');
-        lines.push('Tax (${(window.cashier?.taxRate ?? 0)*100}%): $${toMoney(window.cashier?.tax || 0)}');
-        lines.push('TOTAL: $${toMoney(window.cashier?.total || 0)}');
+        lines.push(`Subtotal: $${toMoney(window.cashier?.subtotal || 0)}`);
+        lines.push(`Tax (${(window.cashier?.taxRate ?? 0)*100}%): $${toMoney(window.cashier?.tax || 0)}`);
+        lines.push(`TOTAL: $${toMoney(window.cashier?.total || 0)}`);
       return lines.join('\n');
     }
 
