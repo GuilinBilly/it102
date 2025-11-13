@@ -149,12 +149,12 @@ function redrawTable() {
       } else {
         window.cashier.items.forEach((it, idx) => {
           rows.push(
-         '<tr>
+         `<tr>
             <td>${idx + 1}</td>
             <td>${it.name}</td>
             <td>${toMoney(it.price)}</td>
             <td><button data-remove="${idx}">x</button></td>
-          </tr>'
+          </tr>`
           );
         });
       }
