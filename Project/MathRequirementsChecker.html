@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Math Requirements Checker</title>
+</head>
+<body>
+
+<h1>Math Requirements Checker</h1>
+<p>Enter your most recent or highest math course to check if you meet the BAS math requirement.</p>
+
+<form id="mathForm" onsubmit="main(); return false;">
+  <label for="courseInput">Math Course:</label>
+  <input type="text" id="courseInput" name="courseInput" placeholder="e.g., MATH146">
+  <button type="submit">Check Eligibility</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+  // -----------------------------
+  // Courses stored as objects (dot notation friendly)
+  // -----------------------------
+  var allMathCourses = {
+    MATH080: { name: "Preparatory Math", qualifies: false, next: "MATH098" },
+    MATH081: { name: "Basic Math", qualifies: false, next: "MATH084" },
+    MATH084: { name: "Algebra I", qualifies: false, next: "MATH085" },
+    MATH085: { name: "Algebra II", qualifies: false, next: "MATH097" },
+    MATH097: { name: "Elementary Algebra", qualifies: false, next: "MATH098" },
+    MATH098: { name: "Intermediate Algebra", qualifies: false, next: "MATH141" },
+    MATH099: { name: "Essentials of Intermediate Algebra", qualifies: false, next: "MATH141" },
+    MATH107: { name: "Math in Society", qualifies: false, next: "MATH146" },
+    MATH116: { name: "Applications of Math", qualifies: false, next: "MATH141" },
+    MATH141: { name: "Precalculus I", qualifies: false, next: "MATH142" },
+    MATH142: { name: "Precalculus II", qualifies: false, next: "MATH151" },
+    MATH146: { name: "Elementary Statistics", qualifies: true, next: "MATH141" },
+    MATH148: { name: "Business Calculus", qualifies: false, next: "MATH211" },
+    MATH151: { name: "Calculus I", qualifies: true, next: "MATH152" },
+    MATH152: { name: "Calculus II", qualifies: true, next: "MATH163" },
+    MATH163: { name: "Calculus III", qualifies: true, next: "MATH220" },
+    MATH211: { name: "Elements of Statistical Methods", qualifies: true, next: "" },
+    MATH220: { name: "Linear Algebra", qualifies: true, next: "MATH224" },
+    MATH224: { name: "Vector Calculus", qualifies: true, next: "MATH238" },
+    MATH238: { name: "Differential Equations", qualifies: true, next: "" }
+  };
+
+  // -----------------------------
+  // Main function
+  // -----------------------------
+  function main() {
+    // PSEUDOCODE:
+    // 1. Get the course by calling getCourseNumber()
+    // 2. If course is null → display message to enter valid course
+    // 3. Otherwise, call checkEligibility(course)
+    // 4. Display results using displayResults()
+  }
+
+  // -----------------------------
+  // Get course from form and validate
+  // -----------------------------
+  function getCourseNumber() {
+    // PSEUDOCODE:
+    // 1. Get user input value (use getElementById)
+    // 2. If empty → return null 
+    // 3. Clean input (use trim and uppercase methods)
+    // 4. Remove any spaces
+    // 5. If key not found in allMathCourses → return null
+    // 6. Otherwise return the valid key
+  }
+
+  // -----------------------------
+  // Check if course meets requirement
+  // -----------------------------
+  function checkEligibility(course) {
+    // PSEUDOCODE:
+    // 1. Access the course object in allMathCourses
+    // 2. If qualifies → return object with meets = true
+    // 3. Else → return object with meets = false and next course
+    // (remember to return an object with keys: course, meets, nextMathCourse)
+  }
+
+  // -----------------------------
+  // Display results using innerHTML
+  // -----------------------------
+  function displayResults(results) {
+    // PSEUDOCODE:
+    // 1. Get resultDiv (use getElementById)
+    // 2. If meets → show success message
+    // 3. Else if nextMathCourse is not empty → show next course
+    // 4. Otherwise → show advisor message
+  }
+
+</script>
+
+</body>
+</html>
