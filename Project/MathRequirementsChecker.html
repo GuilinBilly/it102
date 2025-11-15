@@ -8,13 +8,13 @@
 
 <h1>Math Requirements Checker</h1>
 <p>Enter your most recent or highest math course to check if you meet the BAS math requirement.</p>
-
+<!--Basic form: Student types your math course-->
 <form id="mathForm" onsubmit="main(); return false;">
   <label for="courseInput">Math Course:</label>
   <input type="text" id="courseInput" name="courseInput" placeholder="e.g., MATH146">
   <button type="submit">Check Eligibility</button>
 </form>
-
+<!--The place to display the result message-->
 <div id="result"></div>
 
 <script>
@@ -49,10 +49,23 @@
   // -----------------------------
   function main() {
     // PSEUDOCODE:
-    // 1. Get the course by calling getCourseNumber()
-    // 2. If course is null → display message to enter valid course
-    // 3. Otherwise, call checkEligibility(course)
-    // 4. Display results using displayResults()
+    // 1. Get a validated course key from the list.
+    var course = getCourseNumber();
+    // Prepare a results object.
+    var results;
+    // 2. If course is null → the input was invalid (blank or unknown course),
+    if (course === null) {
+      results = {
+        course: null,
+        meets: false,
+        nextMathCourse: ""
+      };
+    } else {
+    // 3. Otherwise, check if this course meets the requirement.
+      results = checkEligibility(course);
+    }
+    // 4. Display results on the page.
+    displayResults(results);
   }
 
   // -----------------------------
@@ -60,12 +73,26 @@
   // -----------------------------
   function getCourseNumber() {
     // PSEUDOCODE:
-    // 1. Get user input value (use getElementById)
-    // 2. If empty → return null 
-    // 3. Clean input (use trim and uppercase methods)
-    // 4. Remove any spaces
-    // 5. If key not found in allMathCourses → return null
+    // 1. Get student input value (use getElementById)
+    var inputElement = document.getElementById("courseInput");
+    
+    // 2. Get the raw string value from the input.
+    var rawValue = inputElement.value;
+    // 3. If the input is empty, return null.
+    if (!rawValue) {
+      return null;
+    }
+    // 4. Clean the input:
+    // - trim spaces around it
+    // - convert any internal space (e.g., "MATH 146" ->"MATH146")
+    var cleaned = rawValue.trim().toUpperCase();
+    cleaned = cleaned.replace(/\s+/g,)"";
+    // 5. Check if this cleaned string is a key in allMathCourses.
+    if (!allMathCourses.hasOwnProperty(cleaned)) {
+      //If not found, return null (invalid course).
+      return null;
     // 6. Otherwise return the valid key
+      return cleaned;
   }
 
   // -----------------------------
