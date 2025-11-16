@@ -103,7 +103,7 @@
     // 1. Access the course object in allMathCourses
     var course0bj = allMathCourses[couses];
     // 2. Safety check: if no course object, return "not met".
-    if (!course0bj) {
+    if (!courseObj) {
       return {
         course: null
         meets: false,
@@ -111,7 +111,7 @@
       );
     }
     // 3. If this course qualifies (true), return meets = true.
-    if (course0bj).qualifies === true {
+    if (courseObj).qualifies === true {
       return {
         course: course,
         meets: true,
