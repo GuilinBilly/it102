@@ -53,7 +53,7 @@
     var course = getCourseNumber();
     // 2. Prepare a results object.
     var results;
-    // 3. If course is invalid (null) → create a "not met"trsult.
+    // 3. If the course is invalid (null) → create a "not met"trsult.
     if (course === null) {
       results = {
         course: null,
@@ -117,7 +117,7 @@
         course: course,
         meets: true,
         nextMathCourse: courseObj.next
-      }
+      };
     } else {
       
     // 4. Otherwise, return meets = false and suggest the next course.
