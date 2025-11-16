@@ -82,9 +82,7 @@
     if (!rawValue) {
       return null;
     }
-    // 4. Clean the input:
-    // - trim spaces around it
-    // - convert to uppercase
+    // 4. Clean the input: trim spaces and convert to uppercase, remove inner space
     var cleaned = rawValue.trim().toUpperCase();
     cleaned = cleaned.replace(/\s+/g,"");
     // 5. Check if this cleaned string is a key in allMathCourses.
