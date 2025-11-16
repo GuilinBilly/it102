@@ -86,11 +86,12 @@
     // - trim spaces around it
     // - convert to uppercase
     var cleaned = rawValue.trim().toUpperCase();
-    cleaned = cleaned.replace(/\s+/g,)"";
+    cleaned = cleaned.replace(/\s+/g,"");
     // 5. Check if this cleaned string is a key in allMathCourses.
     if (!allMathCourses.hasOwnProperty(cleaned)) {
       //If not found, return null (invalid course).
       return null;
+    }
     // 6. Otherwise return the valid key
       return cleaned;
   }
@@ -101,7 +102,7 @@
   function checkEligibility(course) {
     // PSEUDOCODE:
     // 1. Access the course object in allMathCourses
-    var course0bj = allMathCourses[couses];
+    var courseObj = allMathCourses[couses];
     // 2. Safety check: if no course object, return "not met".
     if (!courseObj) {
       return {
@@ -115,7 +116,7 @@
       return {
         course: course,
         meets: true,
-        nextMathCourse: course0bj.next
+        nextMathCourse: courseObj.next
       }
     } else {
       
@@ -123,7 +124,7 @@
       return {
         course: course,
         meets: false,
-        nextMathCourse: course0bj.next
+        nextMathCourse: courseObj.next
   };
  }
 }
@@ -134,7 +135,7 @@
   function displayResults(results) {
     // PSEUDOCODE:
     // 1. Get resultDiv (use getElementById)
-    var resultDiv = document.getElementById(""result);
+    var resultDiv = document.getElementById("result");
     // 2. Build an HTML message.
     var html ="";
     // Case A: invalid course (null)
@@ -155,9 +156,6 @@
         html = "<p>Your course <strong>" + results.course +
                "</strong> does <strong>not yet</strong> meet the BAS math requirement.You should next 
                  taking MATH084 (Algebra).</p>";
-      if (results.nextMathCourse) {
-        html += "<p>We recommend you take <strong>" + results.nextMathCourse +
-               "</strong> next to stay on pathway.</p>";
      
     }
         
