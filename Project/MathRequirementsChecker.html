@@ -102,17 +102,17 @@
   function checkEligibility(course) {
     // PSEUDOCODE:
     // 1. Access the course object in allMathCourses
-    var courseObj = allMathCourses[couses];
+    var courseObj = allMathCourses[coures];
     // 2. Safety check: if no course object, return "not met".
     if (!courseObj) {
       return {
-        course: null
+        course: null,
         meets: false,
         nextMathCourse:""
       );
     }
     // 3. If this course qualifies (true), return meets = true.
-    if (courseObj).qualifies === true {
+    if (courseObj.qualifies === true {
       return {
         course: course,
         meets: true,
@@ -125,9 +125,9 @@
         course: course,
         meets: false,
         nextMathCourse: courseObj.next
-  };
- }
-}
+      };
+    }
+  }
 
   // -----------------------------
   // Display results using innerHTML
@@ -139,7 +139,7 @@
     // 2. Build an HTML message.
     var html ="";
     // Case A: invalid course (null)
-    if (results.course === null {
+    if (results.course === null) {
       html = "<p>Please enter a valid math course (for example:" +
              "<strong>MATH097</strong>, <strong>MATH146</strong>, <strong>MATH151</strong>)." +
              "</p>";
@@ -154,10 +154,9 @@
      //Case C: course is valid but does not meet requirement
     else {
         html = "<p>Your course <strong>" + results.course +
-               "</strong> does <strong>not yet</strong> meet the BAS math requirement.You should next 
-                 taking MATH084 (Algebra).</p>";
-     
-    }
+               "</strong> does <strong>not yet</strong> meet the BAS math requirement." + 
+               "You should next take <strong>" + results.nextMathCourse + "</strong>.</p>";
+         }
         
       // 3. Show the HTML inside the result <div>.
       resultDiv.innerHTML = html;
