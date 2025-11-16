@@ -8,7 +8,7 @@
 
 <h1>Math Requirements Checker</h1>
 <p>Enter your most recent or highest math course to check if you meet the BAS math requirement.</p>
-<!--Basic form: Student types your math course-->
+<!--Basic form: Student types your math course like MAT146-->
 <form id="mathForm" onsubmit="main(); return false;">
   <label for="courseInput">Math Course:</label>
   <input type="text" id="courseInput" name="courseInput" placeholder="e.g., MATH146">
@@ -51,9 +51,9 @@
     // PSEUDOCODE:
     // 1. Get a validated course key from the list.
     var course = getCourseNumber();
-    // Prepare a results object.
+    // 2. Prepare a results object.
     var results;
-    // 2. If course is null → the input was invalid (blank or unknown course),
+    // 3. If course is invalid (null) → create a "not met"trsult.
     if (course === null) {
       results = {
         course: null,
@@ -61,10 +61,10 @@
         nextMathCourse: ""
       };
     } else {
-    // 3. Otherwise, check if this course meets the requirement.
+    // 4. Otherwise, check if this course meets the requirement.
       results = checkEligibility(course);
     }
-    // 4. Display results on the page.
+    // 5. Display results on the page.
     displayResults(results);
   }
 
@@ -73,7 +73,7 @@
   // -----------------------------
   function getCourseNumber() {
     // PSEUDOCODE:
-    // 1. Get student input value (use getElementById)
+    // 1. Get user input value (use getElementById)
     var inputElement = document.getElementById("courseInput");
     
     // 2. Get the raw string value from the input.
@@ -84,7 +84,7 @@
     }
     // 4. Clean the input:
     // - trim spaces around it
-    // - convert any internal space (e.g., "MATH 146" ->"MATH146")
+    // - convert to uppercase
     var cleaned = rawValue.trim().toUpperCase();
     cleaned = cleaned.replace(/\s+/g,)"";
     // 5. Check if this cleaned string is a key in allMathCourses.
@@ -101,10 +101,32 @@
   function checkEligibility(course) {
     // PSEUDOCODE:
     // 1. Access the course object in allMathCourses
-    // 2. If qualifies → return object with meets = true
-    // 3. Else → return object with meets = false and next course
-    // (remember to return an object with keys: course, meets, nextMathCourse)
-  }
+    var course0bj = allMathCourses[couses];
+    // 2. Safety check: if no course object, return "not met".
+    if (!course0bj) {
+      return {
+        course: null
+        meets: false,
+        nextMathCourse:""
+      );
+    }
+    // 3. If this course qualifies (true), return meets = true.
+    if (course0bj).qualifies === true {
+      return {
+        course: course,
+        meets: true,
+        nextMathCourse: course0bj.next
+      }
+    } else {
+      
+    // 4. Otherwise, return meets = false and suggest the next course.
+      return {
+        course: course,
+        meets: false,
+        nextMathCourse: course0bj.next
+  };
+ }
+}
 
   // -----------------------------
   // Display results using innerHTML
@@ -112,12 +134,38 @@
   function displayResults(results) {
     // PSEUDOCODE:
     // 1. Get resultDiv (use getElementById)
-    // 2. If meets → show success message
-    // 3. Else if nextMathCourse is not empty → show next course
-    // 4. Otherwise → show advisor message
+    var resultDiv = document.getElementById(""result);
+    // 2. Build an HTML message.
+    var html ="";
+    // Case A: invalid course (null)
+    if (results.course === null {
+      html = "<p>Please enter a valid math course (for example:" +
+             "<strong>MATH097</strong>, <strong>MATH146</strong>, <strong>MATH151</strong>)." +
+             "</p>";
+    }
+     // Case B: course meets the requirement
+     else if (results.meets === true) {
+       html = "<p><strong>Congratulations!</strong> Your course <strong>" +
+              results.course +
+              "</strong> meets the math requirement for the BAS in Application Development.</p>";
+  
   }
-
-</script>
+     //Case C: course is valid but does not meet requirement
+    else {
+        html = "<p>Your course <strong>" + results.course +
+               "</strong> does <strong>not yet</strong> meet the BAS math requirement.You should next 
+                 taking MATH084 (Algebra).</p>";
+      if (results.nextMathCourse) {
+        html += "<p>We recommend you take <strong>" + results.nextMathCourse +
+               "</strong> next to stay on pathway.</p>";
+     
+    }
+        
+      // 3. Show the HTML inside the result <div>.
+      resultDiv.innerHTML = html;
+  }
+    
+  </script>
 
 </body>
 </html>
