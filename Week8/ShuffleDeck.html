@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Shuffle the Deck of Cards</title>
+</head>
+<body>
+  <h1>Shuffle the Deck of Cards</h1>
+  <button onclick="shuffleAndShow()">Shuffle the Deck</button>
+
+  <h2>Before Shuffle</h2>
+  <div id="before"></div>
+
+  <h2>After Shuffle</h2>
+  <div id="after"></div>
+
+  <script>
+    // -----------------------------------
+    // Card object (from previous assignment)
+    // -----------------------------------
+    function Card(suit, rank) {
+      this.suit = suit;
+      this.rank = rank;
+    }
+    Card.prototype.toString = function () {
+      return this.rank + " of " + this.suit;
+    };
+
+    // -----------------------------------
+    // Build full deck (52 cards)
+    // -----------------------------------
+    function buildDeck() {
+      const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+      const ranks = ["Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"];
+      const deck = [];
+
+      for (let s of suits) {
+        for (let r of ranks) {
+          deck.push(new Card(s, r));
+        }
+      }
+      return deck;
+    }
+
+    // -----------------------------------
+    // Shuffle using instructor method
+    // Fisher–Yates Shuffle
+    // -----------------------------------
+    function shuffleDeck(deck) {
+      for (let i = deck.length - 1; i > 0; i--) {
+        // random index 0..i
+        let j = Math.floor(Math.random() * (i + 1));
+
+        // swap using temp
+        let temp = deck[i];
+        deck[i] = deck[j];
+        deck[j] = temp;
+      }
+    }
+
+    // -----------------------------------
+    // Display deck to a div (all cards)
+    // -----------------------------------
+    function displayDeck(deck, elementId) {
+      const div = document.getElementById(elementId);
+      div.innerHTML = "";
+
+      for (let k = 0; k < deck.length; k++) {
+        div.innerHTML += deck[k].toString() + "<br>";
+      }
+    }
+
+    // -----------------------------------
+    // Main controller for button
+    // -----------------------------------
+    function shuffleAndShow() {
+      const deck = buildDeck();
+      displayDeck(deck, "before");   // show original deck
+
+      shuffleDeck(deck);
+      displayDeck(deck, "after");    // show shuffled deck
+    }
+
+    // Auto-run once when the page loads
+    window.onload = shuffleAndShow;
+  </script>
+</body>
+</html>
