@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Practice in Class2_2: User Input</title>
+</head>
+<body>
+       <h4>
+            Interviewee Information Page
+       </h4>
+  <script>
+    
+        function start() {
+        function askName() {
+        function askEmail(name) {
+          function askStart(name, email) {
+            function printAll(name, email, date) {              
+              document.write("Interviewee name: " + "Joe Schmoe" + "<br><br>");
+              document.write("Interviewee email address: " + "Joe@gmail.com"+ "<br><br>");
+              document.write("Interviewee available start date: " + "7/3/2023"+ "<br>");
+            }
+            printAll(name, email, prompt("Enter Interviewee's available start date (7/3/2023):"));
+          }
+          askStart(name, prompt("Joe@gmail.com"));
+        }
+        askEmail(prompt("7/3/2023"));
+      }
+
+      askName();
+    }
+
+    start(); // kick things off
+  </script>
+</body>
+</html>
