@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Full Blackjack Game</title>
-
-  <!-- TEMPORARILY: no CSS so we avoid the file-not-found error for now -->
-  <!-- We'll re-add the CSS link after we confirm the page shows correctly. -->
-
-  <!-- JS logic for the game -->
-  <script src="blackjack.js" defer></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
   <h1>Blackjack</h1>
 
-  <div id="table">
-    <div id="dealer-area">
+  <div id="game-container">
+
+    <div class="hand-container">
       <h2>Dealer</h2>
-      <div id="dealer-cards"></div>
-      <div id="dealer-total"></div>
+      <div id="dealer-cards" class="cards"></div>
+      <div id="dealer-total" class="total"></div>
     </div>
 
-    <div id="player-area">
+    <div class="hand-container">
       <h2>Player</h2>
-      <div id="player-cards"></div>
-      <div id="player-total"></div>
+      <div id="player-cards" class="cards"></div>
+      <div id="player-total" class="total"></div>
     </div>
+
   </div>
 
   <div id="controls">
@@ -33,6 +32,9 @@
     <button id="standBtn" disabled>Stand</button>
   </div>
 
-  <div id="message">Welcome to Blackjack! Click "Deal" to start.</div>
+  <div id="message"></div>
+
+  <script src="blackjack.js"></script>
+
 </body>
 </html>
