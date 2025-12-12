@@ -18,10 +18,25 @@
     // -----------------------------------
     // Card object (from previous assignment)
     // -----------------------------------
+    /**
+     * Card constructor function
+     * Creates a card object with a suit and rank
+     * @param {string} suit - The suit of the card (Hearts, Diamonds, Clubs, Spades)
+     * @param {string} rank - The rank of the card (Ace, 2-10, Jack, Queen, King)
+     */
     function Card(suit, rank) {
+      // Store the suit property
       this.suit = suit;
+      // Store the rank property
       this.rank = rank;
     }
+    
+    /**
+     * Card.prototype.toString
+     * Returns a string representation of the card
+     * Example: "Ace of Hearts"
+     * @returns {string} A readable string showing the rank and suit
+     */
     Card.prototype.toString = function () {
       return this.rank + " of " + this.suit;
     };
@@ -29,31 +44,56 @@
     // -----------------------------------
     // Build full deck (52 cards)
     // -----------------------------------
+    /**
+     * buildDeck function
+     * Creates a complete standard deck of 52 playing cards
+     * Iterates through all 4 suits and 13 ranks to create each card
+     * @returns {Array} An array of 52 Card objects
+     */
     function buildDeck() {
+      // Define the 4 suits in a standard deck
       const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+      // Define the 13 ranks in a standard deck
       const ranks = ["Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"];
+      // Initialize an empty array to hold all cards
       const deck = [];
 
+      // Outer loop: iterate through each suit
       for (let s of suits) {
+        // Inner loop: iterate through each rank
         for (let r of ranks) {
+          // Create a new Card object with current suit and rank, add to deck
           deck.push(new Card(s, r));
         }
       }
+      // Return the complete deck of 52 cards
       return deck;
     }
 
     // -----------------------------------
     // Shuffle using instructor method
-    // Fisher–Yates Shuffle
+    // Fisher–Yates Shuffle Algorithm
     // -----------------------------------
+    /**
+     * shuffleDeck function
+     * Shuffles a deck of cards in place using the Fisher-Yates algorithm
+     * This algorithm ensures a truly random shuffle by iterating backwards
+     * through the deck and swapping each card with a random card
+     * @param {Array} deck - The array of Card objects to shuffle (modified in place)
+     */
     function shuffleDeck(deck) {
+      // Loop from the last card backwards to the second card
       for (let i = deck.length - 1; i > 0; i--) {
-        // random index 0..i
+        // Generate a random index from 0 to i (inclusive)
+        // This ensures all remaining cards have equal probability of being selected
         let j = Math.floor(Math.random() * (i + 1));
 
-        // swap using temp
+        // Swap the current card (at index i) with the random card (at index j)
+        // Store the card at index i in a temporary variable
         let temp = deck[i];
+        // Replace the card at index i with the card at index j
         deck[i] = deck[j];
+        // Replace the card at index j with the original card from index i
         deck[j] = temp;
       }
     }
@@ -61,24 +101,50 @@
     // -----------------------------------
     // Display deck to a div (all cards)
     // -----------------------------------
+    /**
+     * displayDeck function
+     * Displays all cards in a deck to a specified HTML element
+     * Uses map/join for efficient HTML string building (single DOM update)
+     * @param {Array} deck - The array of Card objects to display
+     * @param {string} elementId - The HTML element ID where cards will be displayed
+     */
     function displayDeck(deck, elementId) {
+      // Get the HTML element where the deck will be displayed
       const div = document.getElementById(elementId);
-      div.innerHTML = "";
-
-      for (let k = 0; k < deck.length; k++) {
-        div.innerHTML += deck[k].toString() + "<br>";
+      // Check if the element exists before trying to use it (prevents crashes)
+      if (!div) {
+        console.warn("Element with ID '" + elementId + "' not found. Skipping display.");
+        return;
       }
+      // Convert each Card object to its string representation (e.g., "Ace of Hearts")
+      // then join all cards with line breaks (<br>) to create formatted HTML
+      // Finally, set this as the inner HTML of the target element (single DOM update)
+      div.innerHTML = deck.map(card => card.toString()).join("<br>");
     }
 
     // -----------------------------------
     // Main controller for button
     // -----------------------------------
+    /**
+     * shuffleAndShow function
+     * Main controller function that orchestrates the entire shuffle demo
+     * Called when the user clicks the "Shuffle the Deck" button
+     * 1. Creates a new deck
+     * 2. Displays the unshuffled deck
+     * 3. Shuffles the deck
+     * 4. Displays the shuffled deck
+     */
     function shuffleAndShow() {
+      // Create a fresh deck with all 52 cards in standard order
       const deck = buildDeck();
-      displayDeck(deck, "before");   // show original deck
+      // Display the unshuffled deck in the "before" section
+      displayDeck(deck, "before");
 
+      // Shuffle the deck using the Fisher-Yates algorithm
+      // This modifies the deck array in place
       shuffleDeck(deck);
-      displayDeck(deck, "after");    // show shuffled deck
+      // Display the shuffled deck in the "after" section
+      displayDeck(deck, "after");
     }
 
     // Auto-run once when the page loads
