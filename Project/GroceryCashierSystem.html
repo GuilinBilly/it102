@@ -115,7 +115,7 @@
          $errors.textContent ="";
          $loginCard.style.display = "none";
          $app.style.display = "block";
-         $welcome.textContent = 'Welcome,${currentUser.username}(ID: ${currentUser.id}).';
+         $welcome.textContent = `Welcome,${currentUser.username}(ID: ${currentUser.id}).`;
          window.cashier = createCashier(0.10);
          redrawTable();
          redrawTotals();
