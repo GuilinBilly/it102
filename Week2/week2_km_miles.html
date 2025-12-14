@@ -2,33 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-                <title>Kilometeers and Miles Convertter</title>
-                                                          </head>
+    <title>Kilometeers and Miles Convertter</title>
+</head>
 <body>
 
-                  <h1>Kilomeeters ↔ Miles Converter</h1>
+    <h1>Kilometers ↔ Miles Converter</h1>
 
 <script>
 /*
     Purpose:
-    This program practices use condition statements (if, else if, else).
-    It asks the users to choose a conversion type (kilometers to miles or
-    miles to kilometers), performing the correct calculation, and displays
+    This program practices using conditional statements (if, else if, else).
+    It asks the user to choose a conversion type (kilometers to miles or
+    miles to kilometers), performs the correct calculation, and displays
     the result using alerts.
 */
 
     // Ask the user which conversion they want
-                     var choice = prompt(
+     var choice = prompt(
         "Type 'K' to convert kilometers to miles\n" +
         "Type 'M' to convert miles to kilometers"
-                          );
+    );
 
     // Check if users chose kilometers to miles
     if (choice == "K" || choice == "k") {
 
         // Ask for kilometers
         var kilometers = prompt("Enter the number of kilometers:");
-                         kilometers = parseFloat(kilometers);
+        kilometers = parseFloat(kilometers);
 
         // Convert kilometers to miles
         var miles = kilometers * 0.621371;
@@ -36,21 +36,21 @@
         // Display result
         alert(kilometers + " kilometers is equal to " + miles.toFixed(2) + " miles.");
 
-                                                                }
-                 // Check if user chose miles to kilometers
-                      else if (choice === "M" || choice === "m") {
+     }
+     // Check if user chose miles to kilometers
+     else if (choice === "M" || choice === "m") {
 
-                // Ask for miles
-                      var milesInput = prompt("Enter the number of miles:");
+     // Ask for miles
+     var milesInput = prompt("Enter the number of miles:");
         milesInput = parseFloat(milesInput);
 
-                  // Convert miles to kilometers
-                      var kilometersResult = milesInput / 0.621371;
+     // Convert miles to kilometers
+     var kilometersResult = milesInput / 0.621371;
 
-                  // Display result
+     // Display result
                 alert(milesInput + " miles is equal to " + kilometersResult.toFixed(2) + " kilometers.");
 
-               }
+    }
     // Invalid choice
     else {
         alert("Invalid choice! Please type 'K' or 'M'.");
