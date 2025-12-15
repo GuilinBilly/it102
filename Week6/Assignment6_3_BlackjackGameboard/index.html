@@ -1,48 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blackjack Game</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <script>
-        
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blackjack Game</title>
+  <link rel="stylesheet" href="styles/style.css" />
 
-        
-    </script>
+  <script>
+    // -----------------------------
+    // Login / Start Game
+    // -----------------------------
+    function startGame() {
+      // 1) Get the username from the input (DOM)
+      const usernameInput = document.getElementById("username");
+      const errorDiv = document.getElementById("loginError");
+      const form = document.getElementById("userForm");
+      const gameArea = document.getElementById("gameArea");
+      const welcomeMessage = document.getElementById("welcomeMessage");
+
+      const raw = usernameInput.value;
+      const name = raw.trim();
+
+      // Clear old error
+      errorDiv.textContent = "";
+
+      // 2) Validate: not empty
+      if (name.length === 0) {
+        errorDiv.textContent = "Name cannot be empty. Please enter your name.";
+        usernameInput.focus();
+        return;
+      }
+
+      // 3) Validate: no numbers, no special characters
+      // Allow letters and spaces only (so "Billy Lee" is valid)
+      const lettersAndSpacesOnly = /^[A-Za-z ]+$/;
+
+      if (!lettersAndSpacesOnly.test(name)) {
+        errorDiv.textContent =
+          "Name must contain letters only (A-Z). No numbers or special characters.";
+        usernameInput.focus();
+        return;
+      }
+
+      // Optional: prevent double spaces like "Billy   Lee"
+      const cleanName = name.replace(/\s+/g, " ");
+
+      // 4) If valid, show game area and welcome message (DOM)
+      welcomeMessage.textContent = `Welcome, ${cleanName}!`;
+      form.style.display = "none";
+      gameArea.style.display = "block";
+
+      // If your blackjack game has an init/deal function, call it here:
+      // initGame();  or  dealInitialCards();
+    }
+
+    // -----------------------------
+    // Return to form
+    // -----------------------------
+    function returnToForm() {
+      const form = document.getElementById("userForm");
+      const gameArea = document.getElementById("gameArea");
+      const usernameInput = document.getElementById("username");
+      const errorDiv = document.getElementById("loginError");
+      const welcomeMessage = document.getElementById("welcomeMessage");
+      const resultMessage = document.getElementById("resultMessage");
+
+      // Reset UI text
+      errorDiv.textContent = "";
+      welcomeMessage.textContent = "";
+      if (resultMessage) resultMessage.textContent = "";
+
+      // Show form, hide game
+      gameArea.style.display = "none";
+      form.style.display = "block";
+
+      // Clear input
+      usernameInput.value = "";
+      usernameInput.focus();
+
+      // Optional: clear cards areas if your game uses them
+      const dealerCards = document.getElementById("dealerCards");
+      const playerCards = document.getElementById("playerCards");
+      if (dealerCards) dealerCards.innerHTML = "";
+      if (playerCards) playerCards.innerHTML = "";
+    }
+
+    // -----------------------------
+    // Placeholder functions (only needed if your file doesn’t have them yet)
+    // If you already have hit()/stand() from previous assignments, keep yours.
+    // -----------------------------
+    function hit() {
+      alert("hit() not implemented yet (use your previous assignment code here).");
+    }
+
+    function stand() {
+      alert("stand() not implemented yet (use your previous assignment code here).");
+    }
+  </script>
 </head>
+
 <body>
-    <div class="game-container">
-        <h1>Blackjack Game</h1>
-		<form name="userForm" id = "userForm" style="display: block;">
-			Enter your name: <input type="text"> 
-			<input type="button" value="Start Game" onclick="startGame()">
-		</form>
-        
+  <div class="game-container">
+    <h1>Blackjack Game</h1>
+
+    <form name="userForm" id="userForm" style="display: block;">
+      <label for="username">Enter your name:</label>
+      <input type="text" id="username" />
+      <input type="button" value="Start Game" onclick="startGame()" />
+
+      <!-- Error message area (DOM output) -->
+      <div id="loginError" style="margin-top: 10px;"></div>
+    </form>
+  </div>
+
+  <div id="gameArea" style="display: none;">
+    <h2 id="welcomeMessage"></h2>
+
+    <div>
+      <h3>Dealer's Cards:</h3>
+      <div id="dealerCards" class="cards"></div>
     </div>
-    
-    <div id="gameArea" style="display: none;">
-        <h2 id="welcomeMessage"></h2>
-        
-        <div>
-            <h3>Dealer's Cards:</h3>
-            <div id="dealerCards" class="cards"></div>
-        </div>
-        
-        <div>
-            <h3>Your Cards:</h3>
-            <div id="playerCards" class="cards"></div>
-        </div>
-        
-        <div id="buttons">
-            <button id="hitButton" onclick="hit()">Hit</button>
-            <button id="standButton" onclick="stand()">Stand</button>
-        </div>
-        
-        <h3 id="resultMessage"></h3>
-        
-        <!-- Button to return to form -->
-        <button onclick="returnToForm()">Return to Form</button>
+
+    <div>
+      <h3>Your Cards:</h3>
+      <div id="playerCards" class="cards"></div>
     </div>
+
+    <div id="buttons">
+      <button id="hitButton" onclick="hit()">Hit</button>
+      <button id="standButton" onclick="stand()">Stand</button>
+    </div>
+
+    <h3 id="resultMessage"></h3>
+
+    <button onclick="returnToForm()">Return to Form</button>
+  </div>
 </body>
 </html>
