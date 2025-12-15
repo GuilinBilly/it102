@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <!-- HTML Table for Testing Purposes -->
+    <table id = "myTable" style="border: 10px solid red; font-size: 20px; font-weight: bold">
+      <tr id = "row1" style = "color: blue" >
+        <td id = "1.1" style = "border: 2px solid black">Row 1 Col 1</td>
+        <td id = "1.2" style = "border: 2px solid black">Row 1 Col 2</td>
+      </tr>
+    </table>
+
+    <!--Button to Launch a Function -->
+    <br><br>
+    <button type="submit" onclick = "changeTextColor()">Change Text Color</button>
+    <br><br>
+    <!--Add 2nd Button-->
+    <br><br>
+    <!--Add 3rd Button-->
+    <br><br>
+    <!--Add 4th Button-->
+
+    <script>
+      // First JavaScript Function
+      // Changes text color from blue to green and back again
+
+     function changeTextColor(){
+       var textcolor = document.getElementById("row1").style.color;
+       if (textcolor== "green"){
+         textcolor = "blue";
+       }else{
+         textcolor = "green";
+       }
+       document.getElementById("row1").style.color = textcolor;
+     }
+    </script>
+  </body>
+</html>
