@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Blackjack</h1>
+
+    <script>
+    
+      // Part A: Playing Card Object
+     
+      function Card(suit, rank, value) {
+        this.suit = suit;
+        this.rank = rank;
+        this.value = value;
+
+        this.toString = function () {
+          return this.rank + " of " + this.suit;
+        };
+      }
+
+     
+      // Part B: Deck Functions
+    
+      function createDeck() {
+        var suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+        var ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+        var deck = [];
+
+        for (var i = 0; i < suits.length; i++) {
+          for (var j = 0; j < ranks.length; j++) {
+            var rank = ranks[j];
+            var value;
+
+            if (rank === "J" || rank === "Q" || rank === "K") {
+              value = 10;
+            } else if (rank === "A") {
+              value = 11; // simple rule
+            } else {
+              value = parseInt(rank);
+            }
+
+            deck.push(new Card(suits[i], rank, value));
+          }
+        }
+        return deck;
+      }
+
+      function drawCard(deck) {
+        // Reference: Math.floor(Math.random() * 52)
+        var index = Math.floor(Math.random() * deck.length);
+        return deck.splice(index, 1)[0];
+      }
+
+      // Part C: Initialize Variables
+      // (same names as starter code)
+      
+      var deck = createDeck();
+      var card = null;
+      var total = 0;
+      var dealer = 0;
+      var hitMe = true;
+
+      var playerHand = [];
+
+     
+      // Part D: Player Loop (Unlimited Hits)
+      
+      while (hitMe === true && deck.length > 0) {
+
+        // ask player
+        var answer = prompt(
+          "Current total: " + total +
+          "\nYour cards: " +
+          playerHand.map(c => c.toString()).join(", ") +
+          "\n\nTake a card? Y/N"
+        );
+
+        if (answer === null) {
+          hitMe = false;
+        } else {
+          answer = answer.toUpperCase();
+
+          if (answer === "Y") {
+            card = drawCard(deck);   // get random card
+            playerHand.push(card);  // save card
+            total += card.value;    // update total
+
+            // stop loop if player busts
+            if (total > 21) {
+              hitMe = false;
+            }
+          } else {
+            hitMe = false;
+          }
+        }
+      }
+
+     
+      // Part E: Dealer Draws AFTER Player
+     
+      // Dealer always takes 2 cards (simple version)
+      var dealerCard1 = drawCard(deck);
+      var dealerCard2 = drawCard(deck);
+      dealer = dealerCard1.value + dealerCard2.value;
+
+     
+      // Part F: Final Output
+      
+      alert(
+        "Your hand: " + playerHand.map(c => c.toString()).join(", ") +
+        "\nYour total: " + total +
+        "\n\nDealer cards: " + dealerCard1.toString() + ", " + dealerCard2.toString() +
+        "\nDealer total: " + dealer
+      );
+    </script>
+  </body>
+</html>
