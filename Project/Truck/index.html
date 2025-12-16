@@ -11,7 +11,7 @@
   // Properties
     
     this.gas = gas;           //stores current gallons of gas
-    this.mpg;                 //miles/ a gallon
+    this.mpg = mpg;                //miles/ a gallon
     this.range = this.gas * this.mpg;                  //range = gas * mpg
     this.empty = false;       // empty means whether the truck has gas
 
@@ -19,7 +19,8 @@
   //drive method: reduces gas based on miles driven
     this.drive = function (miles) {
     this.gas -= miles / this.mpg;        // subtract gas used (miles / mpg)
-    this.range = this.gas * this.mpg     // update range ater driving
+    this.range = this.gas * this.mpg;     // update range ater driving
+      
   // if gas is empty or below, mark empty as true
   if (this.gas <= 0) {
     this.gas = 0;                        // prevent negative gas
