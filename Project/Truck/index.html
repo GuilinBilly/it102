@@ -7,6 +7,9 @@
 <script>
   // Truck Constructor Function: Create Truck objects with gas & mpg
   function Truck(gas, mpg) {
+    
+  // Properties
+    
     this.gas = gas;           //stores current gallons of gas
     this.mpg;                 //miles/ a gallon
     this.range = this.gas * this.mpg;                  //range = gas * mpg
@@ -41,7 +44,7 @@
     if (this.gas <= 0) {
       this.empty = true;
       this.range = 0;
-    };
+    }
   }
 
   //test code (DO NOT MODIFY)
