@@ -41,6 +41,32 @@
        }
        document.getElementById("row1").style.color = textcolor;
      }
+      // Second JavaScript Function
+      // Set the font size between 20px and 30px
+      function changeFontSize() {
+        var table = document.getElementById("myTable");
+        var fontSize = table.style.fontSize;
+
+        if (fontSize === "30px") {
+          table.style.fontSize = "20px";
+        } else {
+          table.style.fontSize = "30px";
+        }
+      }
+      // Third Function: Change Border Thickness
+      // Set bother thickness between 10px and 20px
+      function changeBorderThickness() {
+        var table = document.getElementById("myTable");
+        var borderWidth = table.style.borderWidth;
+
+        if (borderWidth === "20px") {
+          table.style.borderWidth = "10px";
+        } else {
+          table.style.borderWidth = "20px";
+        }
+      }
+
+      
     </script>
   </body>
 </html>
