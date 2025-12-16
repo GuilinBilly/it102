@@ -64,9 +64,19 @@
         } else {
           table.style.borderWidth = "20px";
         }
-      }
+       }
+       // Fourth Function: Change border Color
+       // Set border color between red and blue
+       function changeBorderColor() {
+        var table = document.getElementById("myTable");
+        var borderColor = table.style.borderColor;
 
-      
+        if (borderColor === "blue") {
+          table.style.borderColor = "red";
+        } else {
+          table.style.borderColor = "blue";
+        }
+      }      
     </script>
   </body>
 </html>
