@@ -5,32 +5,46 @@
 <p id="demo"></p>
 
 <script>
+  // Truck Constructor Function: Create Truck objects with gas & mpg
   function Truck(gas, mpg) {
-    this.gas = gas;
+    this.gas = gas;           //stores current gallons of gas
+    this.mpg;                 //miles/ a gallon
+    this.range = this.gas * this.mpg;                  //range = gas * mpg
+    this.empty = false;       // empty means whether the truck has gas
 
-
-
-
+  // Methods
+  //drive method: reduces gas based on miles driven
     this.drive = function (miles) {
-      this.gas -= miles/this.mpg;
-      if(this.gas <=0) {
+    this.gas -= miles / this.mpg;        // subtract gas used (miles / mpg)
+    this.range = this.gas * this.mpg     // update range ater driving
+  // if gas is empty or below, mark empty as true
+  if (this.gas <= 0) {
+    this.gas = 0;                        // prevent negative gas
         this.empty = true;
+        this.range = 0;
+      } 
+    };
+    
+   // fill method_add gas and updates empty status
+    this.fill = function (gallons){
+    this.gas += gallons;             // add gallons to gas
+    this.range = this.gas * this.mpg;         // update range after filling
+      
+    // since gas is addwd, empty should be false
+     if (this.gas > 0) {
+        this.empty = false;
       }
     };
 
-    this.fill = function (gallons){
-
-
-    };
-
+    // Initial empty check
     // Sets empty to true if no gas
-    if (this.gas <= 0){
+    if (this.gas <= 0) {
       this.empty = true;
+      this.range = 0;
     };
-
   }
 
-  //test code
+  //test code (DO NOT MODIFY)
 
   test= new Truck(20, 15);
 
