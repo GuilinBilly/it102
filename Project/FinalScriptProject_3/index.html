@@ -19,12 +19,15 @@
     for(i = 0; i < this.sides; i++){  //error: 'i' not declared with var
                                       //corrected: (var i = 0; i < this.sides; i++)
       this.values[i]=i;
-    }    // Eroor: missing semi-colon }  
-            }; //corrected
-
+    }                
+             //error: Missing closing brace for the Die constructor function
+            //corrected: Add the closing brace '}'.
+    
     this.roll = function() {
       var showing = Math.ceil(Math.random()*this.sides);
-      return this.values[showing];
+      return this.values[showing];  //error 1: Array index out of counds- Math.ceil gives 1-6
+                                      but arrays are 0-5 based
+                                    //corrected: 'Math.ceil(Math.random()*this.sides)-1;'
     };
 
     var pokerSide = ["A", "K", "Q", "J", "10","9"]; 
@@ -39,10 +42,13 @@
   var myDie = [];    //inconsistency(singulsr) error: myDie
                      //corrected: myDice (plural) 
 
-  for (c = 0; c < 5; c++){
-    myDice[c] = new Die(5);   //undeclaared variable error: 'myDice[c] = new Die(5);
-                              //corrected: 'myDice[c] = new Die(6);'(should have 6 faces)
-    myDice[c].poker();
+  for (c = 0; c < 5; c++){    //error: 'c'not declared with 'var'
+                              //correcred: for (var c = 0; c < 5; c++){     
+    myDice[c] = new Die(5);   //error 1: Should be 'myDie' not 'mydice' 
+                                error 2: Should be new Die(6) sides
+                              //corrected: 'myDie[c] = new Die(6);
+    myDice[c].poker();        //error: Should be 'myDie' not 'mydice'
+                              //corrected: myDie[c].poker()  
   }
 
   var output = "";
