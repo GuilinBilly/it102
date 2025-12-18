@@ -20,14 +20,14 @@
                                       //corrected: (var i = 0; i < this.sides; i++)
       this.values[i]=i;
     }                
-             //error: Missing closing brace for the Die constructor function
-            //corrected: Add the closing brace '}'.
+            
     
     this.roll = function() {
-      var showing = Math.ceil(Math.random()*this.sides);
-      return this.values[showing];  //error 1: Array index out of counds- Math.ceil gives 1-6
-                                      but arrays are 0-5 based
-                                    //corrected: 'Math.ceil(Math.random()*this.sides)-1;'
+      // var showing = Math.ceil(Math.random() * this.sides);
+      // logic error - Math.ceil makes 1..sides, but array indexes are 0..(sides-1)
+      var showing = Math.floor(Math.random()*this.sides); //corrected
+      
+      return this.values[showing];  
     };
 
     var pokerSide = ["A", "K", "Q", "J", "10","9"]; 
@@ -37,16 +37,19 @@
       }
     };
 
+                     //error: Missing closing brace for the Die constructor function
+  }                  //corrected: Add the closing brace '}'.
+  
+  // var myDie = [];
+  // syntax/identifier error - later code uses myDice, not myDie
+var myDice = []; // corrected
 
+  for (c = 0; c < 5; c++){     
+   // myDice[c] = new Die(5);
+   // gameplay functionality error - dice must have 6 faces (A,K,Q,J,10,9)
+  myDice[c] = new Die(6); // corrected
 
-  var myDie = [];    //inconsistency(singulsr) error: myDie
-                     //corrected: myDice (plural) 
-
-  for (c = 0; c < 5; c++){    //error: 'c'not declared with 'var'
-                              //correcred: for (var c = 0; c < 5; c++){     
-    myDice[c] = new Die(5);   //error 1: Should be 'myDie' not 'mydice' 
-                                error 2: Should be new Die(6) sides
-                              //corrected: 'myDie[c] = new Die(6);
+    
     myDice[c].poker();        //error: Should be 'myDie' not 'mydice'
                               //corrected: myDie[c].poker()  
   }
