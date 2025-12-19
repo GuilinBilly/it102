@@ -16,10 +16,10 @@
                                          
     this.sides = sides;
     this.values = [];
-    for(i = 0; i < this.sides; i++){  //error: 'i' not declared with var
-                                      //corrected: (var i = 0; i < this.sides; i++)
-      this.values[i]=i;
-    }                
+   // for(i = 0; i < this.sides; i++)   // syntax issue - i not declared with var/let (global variable)
+  for (var i = 0; i < this.sides; i++) { // corrected
+    this.values[i] = i;
+  }  
             
     
     this.roll = function() {
